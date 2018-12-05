@@ -1,2 +1,2 @@
 # vulneralbility-dependency
-List of Vulneralbility Dependency
+Sample List of Vulneralbility Dependency
