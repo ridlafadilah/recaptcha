@@ -72,6 +72,18 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
+	  
+		var observer = new MutationObserver(function(muta tions) {
+			mutations.forEach(function(mutationRecord) {
+				console.log('style changed!');
+				resizeCallback();
+			});    
+		});
+
+		var x = document.getElementsByTagName("iframe");
+
+		var target = x[x.length-1];
+		observer.observe(target, { attributes : true, attributeFilter : ['style'] });
     };
 
     function verifyCallback(token) {
@@ -81,17 +93,6 @@
         console.log("Something wrong...");
       }
     }
-	var observer = new MutationObserver(function(muta tions) {
-		mutations.forEach(function(mutationRecord) {
-			console.log('style changed!');
-			resizeCallback();
-		});    
-	});
-
-	var x = document.getElementsByTagName("iframe");
-
-	var target = x[x.length-1];
-	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
 
     function resizeCallback() {
       try {
