@@ -32,10 +32,53 @@
   <link rel="icon" type="image/gif" href="./images/favicon.ico" />
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
   </script>
+  <style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	.container {
+	  max-width: 422px;
+	  background: #e9e9e9;
+	  padding: 35px;
+	}
+
+	.g-recaptcha {
+	  transform-origin: left top;
+	  -webkit-transform-origin: left top;
+	}
+
+	/* ------ CTA ------ */
+	a {
+	  text-align: center;
+	  margin: 15px;
+	  text-decoration: none;
+	  padding: 10px 30px;
+	}
+	.btn {
+	  margin-top: 100px;
+	  color: #27282d;
+	  background-color: #ffd200;
+	/* 
+	  position: absolute;
+	  float: right;
+	  margin-right:10px;
+	  margin-top:10px;
+	  top: 128px;
+	*/ 
+	}
+	.btn:hover {
+	  color: #ffd200;
+	  background-color: #27282d;
+	}
+	.btn:active {
+	  background: #16a085;
+	}
+  </style>
 </head>
 
 <body>
-  <div id="html_element"></div>
+  <div id="g-recaptcha" class="g-recaptcha"></div>
 
   <script type="text/javascript">
     function findGetParameter(parameterName) {
@@ -53,7 +96,7 @@
 
     var onloadCallback = function () {
       console.log("grecaptcha is ready!");
-      grecaptcha.render('html_element', {
+      grecaptcha.render('g-recaptcha', {
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
