@@ -55,7 +55,7 @@
     var onloadCallback = function () {
       console.log("grecaptcha is ready!");
       grecaptcha.render('html_element', {
-        'sitekey': findGetParameter("api_key"),
+        'sitekey': findGetParameter("site_key"),
         // 'callback': verifyCallback
       });
     };
