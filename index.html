@@ -48,22 +48,10 @@
 
 <body class="body">
 	<div align="center">
-		<iframe></iframe>
 		<div id="g-recaptcha" class="g-recaptcha"></div>
 	</div>
 
-  <script type="text/javascript">
-	var observer = new MutationObserver(function(muta tions) {
-		mutations.forEach(function(mutationRecord) {
-			console.log('style changed!');
-			resizeCallback();
-		});    
-	});
-
-	var x = document.getElementsByTagName("iframe");
-
-	var target = x[x.length-1];
-	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
+  <script type="text/javascript"  async defer>
 
     function findGetParameter(parameterName) {
       var result = null,
@@ -93,10 +81,21 @@
         console.log("Something wrong...");
       }
     }
+	var observer = new MutationObserver(function(muta tions) {
+		mutations.forEach(function(mutationRecord) {
+			console.log('style changed!');
+			resizeCallback();
+		});    
+	});
+
+	var x = document.getElementsByTagName("iframe");
+
+	var target = x[x.length-1];
+	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
 
     function resizeCallback() {
       try {
-        RecaptchaDongkapResize.postMessage(true);
+        ResizeDongkapChannel.postMessage(true);
       } catch (e) {
         console.log("Something wrong...");
       }
