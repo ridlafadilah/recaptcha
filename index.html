@@ -51,8 +51,7 @@
 		<div id="g-recaptcha" class="g-recaptcha"></div>
 	</div>
 
-  <script type="text/javascript"  async defer>
-
+  <script type="text/javascript">
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [];
@@ -72,31 +71,11 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
-	  
-		var observer = new MutationObserver(function(muta tions) {
-			mutations.forEach(function(mutationRecord) {
-				console.log('style changed!');
-				resizeCallback();
-			});    
-		});
-
-		var x = document.getElementsByTagName("iframe");
-
-		var target = x[x.length-1];
-		observer.observe(target, { attributes : true, attributeFilter : ['style'] });
     };
 
     function verifyCallback(token) {
       try {
         RecaptchaDongkapChannel.postMessage(token);
-      } catch (e) {
-        console.log("Something wrong...");
-      }
-    }
-
-    function resizeCallback() {
-      try {
-        ResizeDongkapChannel.postMessage(true);
       } catch (e) {
         console.log("Something wrong...");
       }
