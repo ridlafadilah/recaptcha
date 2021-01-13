@@ -55,13 +55,11 @@
       console.log("grecaptcha is ready!");
       grecaptcha.render('html_element', {
         'sitekey': findGetParameter("site_key"),
-        // 'callback': verifyCallback
+        'callback': verifyCallback
       });
     };
 
     function verifyCallback(token) {
-      console.log(token);
-      // console.log(grecaptcha.getResponse());
       try {
         RecaptchaDongkapChannel.postMessage(token);
       } catch (e) {
