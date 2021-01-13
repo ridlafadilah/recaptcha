@@ -52,6 +52,18 @@
 	</div>
 
   <script type="text/javascript">
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutationRecord) {
+			console.log('style changed!');
+			resizeCallback();
+		});    
+	});
+
+	var x = document.getElementsByTagName("iframe");
+
+	var target = x[x.length-1];
+	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
+
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [];
@@ -76,6 +88,14 @@
     function verifyCallback(token) {
       try {
         RecaptchaDongkapChannel.postMessage(token);
+      } catch (e) {
+        console.log("Something wrong...");
+      }
+    }
+
+    function resizeCallback() {
+      try {
+        RecaptchaDongkapResize.postMessage(true);
       } catch (e) {
         console.log("Something wrong...");
       }
