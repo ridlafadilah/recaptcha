@@ -69,13 +69,11 @@
       console.log("grecaptcha is ready!");
       grecaptcha.render('g-recaptcha', {
         'sitekey': findGetParameter("site_key"),
-		'size': 'compact',
         'callback': verifyCallback
       });
     };
 
     function verifyCallback(token) {
-		console.info("Button was clicked");
       try {
         RecaptchaDongkapChannel.postMessage(token);
       } catch (e) {
