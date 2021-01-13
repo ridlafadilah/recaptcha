@@ -14,6 +14,13 @@
   <meta name="keywords" content="flutter, recaptcha, plugin, captcha">
   <meta name="author" content="http://wearetopgroup.com">
 
+  <!-- Social Sharing Info -->
+  <meta property="og:url" content="" />
+  <meta property="og:title" content="Google reCAPTCHA" />
+  <meta property="og:description" content="A Flutter plugin for Google ReCaptcha" />
+  <meta property="og:image" content=".../assets/images/share.jpg" />
+  <!-- <meta property="fb:app_id" content="102048594658" /> -->
+
   <!-- Viewport and mobile -->
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
@@ -21,7 +28,7 @@
   <!-- FAVICON -->
   <link rel="image_src" href="./images/favicon.ico" />
   <link rel="icon" type="image/gif" href="./images/favicon.ico" />
-  <script src="https://www.google.com/recaptcha/api.js?render=6LedKisaAAAAAK_iXNq8krubilNLWNJOlqFdsSlw">
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
   </script>
   <style>
 	.body {
@@ -41,28 +48,38 @@
 
 <body class="body">
 	<div align="center">
-		<div id="g-recaptcha" class="g-recaptcha">
-			<button class="g-recaptcha" 
-				data-sitekey="reCAPTCHA_site_key" 
-				data-callback='onSubmit' 
-				data-action='submit'>Submit</button>
-		</div>
+		<div id="g-recaptcha" class="g-recaptcha"></div>
 	</div>
 
   <script type="text/javascript">
-    
-      function onClick(e) {
-        e.preventDefault();
-        grecaptcha.ready(function() {
-          grecaptcha.execute('reCAPTCHA_site_key', {action: 'submit'}).then(function(token) {              
-		  try {
-			RecaptchaDongkapChannel.postMessage(token);
-		  } catch (e) {
-			console.log("Something wrong...");
-		  }
-          });
+    function findGetParameter(parameterName) {
+      var result = null,
+        tmp = [];
+      location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
+      return result;
+    }
+
+    var onloadCallback = function () {
+      console.log("grecaptcha is ready!");
+      grecaptcha.render('g-recaptcha', {
+        'sitekey': findGetParameter("site_key"),
+        'callback': verifyCallback
+      });
+    };
+
+    function verifyCallback(token) {
+      try {
+        RecaptchaDongkapChannel.postMessage(token);
+      } catch (e) {
+        console.log("Something wrong...");
       }
+    }
   </script>
 
 </body>
