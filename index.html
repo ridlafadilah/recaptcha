@@ -52,6 +52,12 @@
 	</div>
 
   <script type="text/javascript">
+	  const targetElement = document.getElementsByTagName('div');
+	  const observerConfig = {
+		childList: true,
+		attributes: true,
+      attributeFilter: ['style']
+	};
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [];
@@ -71,12 +77,6 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
-	  const targetElement = document.getElementsByTagName('div');
-	  const observerConfig = {
-		childList: true,
-		attributes: true,
-      attributeFilter: ['style']
-	};
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
 		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
     };
