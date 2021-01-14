@@ -91,7 +91,6 @@
 	
 	function DOMChangeCallbackFunction(mutationRecords) {
 					console.log('Test!');
-					console.log(mutationRecords.length);
 		mutationRecords.forEach((mutationRecord) => {
 		var x = targetElement[targetElement.length-3];
   if(x && x.style.visibility === 'hidden'){
@@ -99,11 +98,9 @@
   }
 			if (mutationRecord.addedNodes.length) { //check only when notes were added to DOM
 				var reCaptchaParentContainer = mutationRecord.addedNodes[0];
-				var reCaptchaIframe = reCaptchaParentContainer.querySelectorAll('iframe[src^="https://www.google.com/recaptcha"][src*="bframe"]');
+				var reCaptchaIframe = reCaptchaParentContainer.querySelectorAll('div[style*="visibility"]');
 
-				var x = document.getElementsByTagName('div');
-				console.log(x[x.length-3].style.visibility);
-				if (x[x.length-3].style.visibility == 'visible') { // Google reCaptcha iframe was loaded
+				if (reCaptchaIframe.length) { // Google reCaptcha iframe was loaded
 					console.log('Yay!');
 					// Challenge was loaded -- DO SOMETHING HERE
 				}
