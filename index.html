@@ -93,6 +93,7 @@
     }
 	
 	function DOMChangeCallbackFunction(mutationRecords) {
+					console.log('Test!');
 		mutationRecords.forEach((mutationRecord) => {
 			if (mutationRecord.addedNodes.length) { //check only when notes were added to DOM
 				var reCaptchaParentContainer = mutationRecord.addedNodes[0];
