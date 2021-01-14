@@ -71,6 +71,15 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
+	  const targetElement = document.body;
+	  const observerConfig = {
+		childList: true,
+		attributes: false,
+		attributeOldValue: false,
+		characterData: false,
+		characterDataOldValue: false,
+		subtree: false
+	};
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
 		reCaptchaObserver.observe(targetElement, observerConfig);
     };
