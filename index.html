@@ -55,6 +55,8 @@
 	  const targetElement = document.getElementsByTagName('div');
 	  const observerConfig = {
 		childList: true,
+		attributes : true,
+		attributeFilter : ['style']
 	};
     function findGetParameter(parameterName) {
       var result = null,
@@ -89,6 +91,7 @@
 	
 	function DOMChangeCallbackFunction(mutationRecords) {
 					console.log('Test!');
+					console.log(mutationRecords.length);
 		mutationRecords.forEach((mutationRecord) => {
 		var x = targetElement[targetElement.length-3];
   if(x && x.style.visibility === 'hidden'){
