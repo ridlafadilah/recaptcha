@@ -52,6 +52,17 @@
 	</div>
 
   <script type="text/javascript">
+	  const targetElement = document.getElementsByTagName('div');
+	  const observerConfig = {
+		childList: true,
+		attributes: true,
+		attributeOldValue: false,
+		characterData: false,
+		characterDataOldValue: false,
+		subtree: false
+	};
+	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
+		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [];
@@ -71,17 +82,6 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
-	  const targetElement = document.getElementsByTagName('div');
-	  const observerConfig = {
-		childList: true,
-		attributes: true,
-		attributeOldValue: false,
-		characterData: false,
-		characterDataOldValue: false,
-		subtree: false
-	};
-	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
-		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
     };
 
     function verifyCallback(token) {
