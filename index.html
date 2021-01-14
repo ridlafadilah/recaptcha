@@ -74,7 +74,8 @@
 	  const targetElement = document.getElementsByTagName('div');
 	  const observerConfig = {
 		childList: true,
-		attributes: true
+		attributes: true,
+      attributeFilter: ['style']
 	};
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
 		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
