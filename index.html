@@ -81,7 +81,7 @@
 		subtree: false
 	};
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
-		reCaptchaObserver.observe(targetElement, observerConfig);
+		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
     };
 
     function verifyCallback(token) {
