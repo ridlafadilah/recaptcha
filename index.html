@@ -71,6 +71,8 @@
         'sitekey': findGetParameter("site_key"),
         'callback': verifyCallback
       });
+	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
+		reCaptchaObserver.observe(targetElement, observerConfig);
     };
 
     function verifyCallback(token) {
@@ -80,6 +82,21 @@
         console.log("Something wrong...");
       }
     }
+	
+	function DOMChangeCallbackFunction(mutationRecords) {
+		mutationRecords.forEach((mutationRecord) => {
+			if (mutationRecord.addedNodes.length) { //check only when notes were added to DOM
+				var reCaptchaParentContainer = mutationRecord.addedNodes[0];
+				var reCaptchaIframe = reCaptchaParentContainer.querySelectorAll('iframe[title*="recaptcha"]');
+
+				if (reCaptchaIframe.length) { // Google reCaptcha iframe was loaded
+					console.log('Yay!');
+					reCaptchaObserver.disconnect(); // We don't want to observe more DOM changes for better performance
+					// Challenge was loaded -- DO SOMETHING HERE
+				}
+			}
+		});
+	}
   </script>
 
 </body>
