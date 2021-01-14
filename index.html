@@ -31,10 +31,6 @@
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
   </script>
   <style>
-	.body {
-	  background-color: #fff;
-	}
-
 	.g-recaptcha {
 	  position: fixed;
 	  top: 50%;
@@ -46,7 +42,7 @@
   </style>
 </head>
 
-<body class="body">
+<body>
 	<div align="center">
 		<div id="g-recaptcha" class="g-recaptcha"></div>
 	</div>
@@ -83,8 +79,13 @@
         'theme': findGetParameter("theme"),
         'callback': verifyCallback
       });
+	  if(findGetParameter("theme") == 'dark') {
+		document.body.style.backgroundColor = "#222";
+	  } else {
+		document.body.style.backgroundColor = "#fff";
+	  }
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
-		reCaptchaObserver.observe(targetElement, observerConfig);
+	  reCaptchaObserver.observe(targetElement, observerConfig);
     };
 
     function verifyCallback(token) {
