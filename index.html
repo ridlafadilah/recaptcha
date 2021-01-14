@@ -80,9 +80,9 @@
         'callback': verifyCallback
       });
 	  if(findGetParameter("theme") == 'dark') {
-		document.body.style.backgroundColor = "#222";
+		document.body.style.backgroundColor = "#222222";
 	  } else {
-		document.body.style.backgroundColor = "#fff";
+		document.body.style.backgroundColor = "#f9f9f9";
 	  }
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
 	  reCaptchaObserver.observe(targetElement, observerConfig);
