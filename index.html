@@ -99,8 +99,7 @@
 				var reCaptchaIframe = reCaptchaParentContainer.querySelectorAll('iframe[title*="recaptcha"]');
 
 				if (reCaptchaIframe.length) { // Google reCaptcha iframe was loaded
-					console.log('Yay!');
-					reCaptchaObserver.disconnect(); // We don't want to observe more DOM changes for better performance
+					console.log('Yay!');// We don't want to observe more DOM changes for better performance
 					// Challenge was loaded -- DO SOMETHING HERE
 				}
 			}
