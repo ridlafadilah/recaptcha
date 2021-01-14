@@ -52,10 +52,17 @@
 	</div>
 
   <script type="text/javascript">
-	  const targetElement = document.getElementsByTagName('div');
-	  const observerConfig = {
-		attributes : true,
+	const targetElement = document.body;
+	const observerConfig = {
+    childList: true,
+    attributes: true,
+	attributeFilter : ['style'],
+    attributeOldValue: true,
+    characterData: true,
+    characterDataOldValue: true	,
+    subtree: true
 	};
+
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [];
@@ -76,7 +83,7 @@
         'callback': verifyCallback
       });
 	  const reCaptchaObserver = new MutationObserver(DOMChangeCallbackFunction);
-		reCaptchaObserver.observe(targetElement[targetElement.length-3], observerConfig);
+		reCaptchaObserver.observe(targetElement, observerConfig);
     };
 
     function verifyCallback(token) {
@@ -88,15 +95,17 @@
     }
 	
 	function DOMChangeCallbackFunction(mutationRecords) {
-					console.log('Test!');
 		mutationRecords.forEach((mutationRecord) => {
-			if (mutationRecord.length) { //check only when notes were added to DOM
-				var reCaptchaParentContainer = mutationRecord[0];
-				var reCaptchaIframe = reCaptchaParentContainer.querySelectorAll('div[style*="visibility"]');
-
-				if (reCaptchaIframe.length) { // Google reCaptcha iframe was loaded
-					console.log('Yay!');
-					// Challenge was loaded -- DO SOMETHING HERE
+			if (mutationRecord.oldValue) {
+				try {
+					if (mutationRecord.oldValue.includes('visible')) {
+						console.log('Challenge Recaptcha');
+						ResizeDongkapChannel.postMessage(true);
+					} else {
+						ResizeDongkapChannel.postMessage(false);
+					}
+				} catch (e) {
+					console.log("Something wrong...");
 				}
 			}
 		});
